@@ -1,0 +1,3 @@
+rootProject.name = 'Fanci3'
+
+include ':app'
