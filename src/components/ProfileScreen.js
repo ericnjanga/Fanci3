@@ -1,7 +1,7 @@
 import React,{Component}  from 'react';
 import { View, StyleSheet, Dimensions,Text } from 'react-native';
 import { TabViewAnimated, TabBar, SceneMap } from 'react-native-tab-view';
-import FontAwesome, { Icons } from 'react-native-fontawesome';
+//import FontAwesome, { Icons } from 'react-native-fontawesome';
 import { HomeTab, ProfileTab, TimelineTab }  from './Tabs';
 
 const initialLayout = {

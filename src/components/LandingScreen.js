@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import {Text, View, Image, StyleSheet, TouchableOpacity} from 'react-native';
-import { SocialIcon, Button } from 'react-native-elements';
+//import { SocialIcon, Button } from 'react-native-elements';
 
  
 
@@ -50,21 +50,12 @@ class LandingScreen extends Component{
                 </View>
                 
                 <View style={viewStyles.loginPanel}> 
-                   <SocialIcon
-                    title='Sign In With Facebook'
-                    button
-                    type='facebook'
-                    />
-                    <SocialIcon
-                    title='Create Account'
-                    button
-                    light
-                    onPress = {this.registerPress.bind(this)}
-                    />
-                    <TouchableOpacity> 
-                       <Text> More Options </Text> 
-                    </TouchableOpacity>
-                    
+                   <TouchableOpacity onPress = {this.registerPress.bind(this)} >
+                    <Text>Create Account </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity> 
+                    <Text> More Options </Text> 
+                  </TouchableOpacity>                    
                 </View>
 
 

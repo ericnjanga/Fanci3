@@ -1,11 +1,9 @@
 import React,{Component} from 'react';
-import {Text, ScrollView, TextInput, View, StyleSheet, TouchableOpacity,AsyncStorage } from 'react-native';
+import {Text, ScrollView, TextInput, View, StyleSheet, TouchableOpacity,AsyncStorage,Button} from 'react-native';
 import firebase from 'firebase';
-import { Card, Spinner, Button } from './common'; 
-import { BackgroundImage } from './common/BackgroundImage.js'; 
-import { Logo } from './common/Logo.js'; 
-import { Input } from './common/Input.js';  
-import { List, ListItem } from 'react-native-elements';
+import { Card, Spinner ,BackgroundImage ,Logo ,Input } from './common'; 
+
+//import { List, ListItem } from 'react-native-elements';
 
  
 
@@ -65,15 +63,19 @@ class LoginScreen extends Component{
             .catch(() => {
                 this.onLoginFail.bind(this);
             });
-        else
+        /*else
              firebase.auth().createUserWithEmailAndPassword(email, password)
                     .then(this.onLoginSuccess.bind(this))
                     .catch(this.onLoginFail.bind(this))
+                    */
     }
     onLoginFail() {
         this.setState({ 'err': 'Authention failed', loading: false, });
     }
-    
+    goToRegisterPage(){
+        this.props.navigation.navigate("Register");
+        return false;
+    }
     onLoginSuccess(res) {
         this.setState({
             'err': '',
@@ -83,12 +85,6 @@ class LoginScreen extends Component{
             loggedin :true,userData:res.providerData[0]
         });
         this.goToHomePage();
-    }
-    registerPress(){
-        if(this.state.loginPage)
-            this.setState({pageText : 'Register' , loginPage : false});
-        else
-            this.setState({pageText : 'Login' , loginPage : true});
     }
  
     render() {
@@ -102,32 +98,28 @@ class LoginScreen extends Component{
         return (
             <View style={viewStyles.view}>
                 <Logo location="top-center" />
-
                 <View style={viewStyles.pagePanel}>  
+                    <TouchableOpacity onPress={this.goToRegisterPage.bind(this)}>
+                        <Text style={{fontSize:20,marginLeft:120,color:'#fff'}}>Register</Text>
+                    </TouchableOpacity>
+                    <Text style={{fontSize:40,marginLeft:120,color:'#fff'}}>{this.state.pageText}</Text>
                     <View style={viewStyles.frameInputs}>
                         <Input type='email' placeholder='email' borderBottom="true" value={ this.state.email } onChangeText={ email => this.setState({email}) } />
                         <Input type='password' placeholder='password' value={ this.state.passwprd } onChangeText={ passwprd => this.setState({passwprd}) } />
                     </View>
 
                     {/* Auth Errors */}
-                    <Text style={viewStyles.txtError}>{this.state.err}</Text>
+                    <Text style={viewStyles.txtError}>{this.state.err} Hi</Text>
 
                     <View style={viewStyles.frameCta}>
-                        <Button disabled={this.state.loading} type="primary" onPress={this.onButtonPress.bind(this)}>{this.state.pageText}</Button>
+                        <Button disabled={this.state.loading} type="primary" title={this.state.pageText} onPress={this.onButtonPress.bind(this)}></Button>
                     </View> 
 
                     {/* Spinner */}
                     { this.state.loading && <Spinner />} 
                 </View>
  
-                {/* Page buttom links */}
-                <List containerStyle={viewStyles.pageBottomLinksContainer}>
-                    {
-                        arrPageBottomLinks.map((l, i) => (
-                            <ListItem key={i} title={l.name} style={viewStyles.pageBottomLink} />
-                        ))
-                    }
-                </List> 
+                
   
                 <BackgroundImage /> 
             </View>
@@ -158,7 +150,7 @@ const viewStyles = StyleSheet.create({
     pageBottomLink: { 
         color: 'white', 
     }, 
-    loginPanel: {
+    pagePanel: {
         position: 'absolute', 
         top: 200,
         start: 60,

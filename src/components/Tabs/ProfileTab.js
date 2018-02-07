@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
-import { View, Text, Image, StyleSheet, AsyncStorage } from 'react-native';
-import { Card, ListItem, Button,Avatar } from 'react-native-elements'
+import { View, Text, Image, StyleSheet,Button, AsyncStorage } from 'react-native';
+import { Card, CardSection } from '../common';
 import firebase from 'firebase';
 class ProfileTab  extends Component {
   state = {userData : null};
@@ -48,12 +48,18 @@ class ProfileTab  extends Component {
                        {this.state.userData}
                     </Text>
                     <Button style={{margin:20}} onPress={this.logOut.bind(this)} title="Log Out"/>
-                    <Card title="CARD WITH DIVIDER">
+                    
+                </View>
+                )
+            }
+};
+          /*
+            <Card title="CARD WITH DIVIDER">
                       {
                         users.map((u, i) => {
                           return (
                             <View key={i} style={{}}>
-                              <Avatar
+                              <CardSection
                                   small
                                   rounded
                                   source={{uri: "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg"}}
@@ -67,8 +73,5 @@ class ProfileTab  extends Component {
                         })
                       }
                     </Card>
-                </View>
-                )
-            }
-};
+          */
 export {ProfileTab};

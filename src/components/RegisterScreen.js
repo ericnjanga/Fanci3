@@ -1,11 +1,8 @@
 import React,{Component} from 'react';
 import {Text, ScrollView, TextInput, View, StyleSheet, TouchableOpacity,AsyncStorage } from 'react-native';
 import firebase from 'firebase';
-import { Card, Spinner, Button } from './common'; 
-import { BackgroundImage } from './common/BackgroundImage.js'; 
-import { Logo } from './common/Logo.js'; 
-import { Input } from './common/Input.js';  
-import { List, ListItem } from 'react-native-elements';
+import { Card, Spinner, Button, BackgroundImage ,Logo ,Input } from './common'; 
+//import { List, ListItem } from 'react-native-elements';
 
  
 
@@ -57,7 +54,7 @@ class RegisterScreen extends Component{
     onButtonPress = () => {
         console.log("Click");
         const { email, password } = this.state;
-        this.setState({ 'err': '', loading: true });
+        this.setState({ 'err': ':Please Wait', loading: true });
         firebase.auth().createUserWithEmailAndPassword(email, password)
                     .then(this.onLoginSuccess.bind(this))
                     .catch(this.onLoginFail.bind(this))     
@@ -95,30 +92,23 @@ class RegisterScreen extends Component{
                 <View style={viewStyles.pagePanel}>  
                     <View style={viewStyles.frameInputs}>
                         <Input type='email' placeholder='email' borderBottom="true" value={ this.state.email } onChangeText={ email => this.setState({email}) } />
-                        <Input type='email' placeholder='Confirm Email' borderBottom="true" value={ this.state.email } onChangeText={ email => this.setState({email}) } />
+                        <Input type='email' placeholder='Confirm Email' borderBottom="true" value={ this.state.Cemail } onChangeText={ Cemail => this.setState({Cemail}) } />
                         <Input type='password' placeholder='password' value={ this.state.passwprd } onChangeText={ passwprd => this.setState({passwprd}) } />
-                        <Input type='password' placeholder='Confirm Password' value={ this.state.passwprd } onChangeText={ passwprd => this.setState({passwprd}) } />
+                        <Input type='password' placeholder='Confirm Password' value={ this.state.Cpasswprd } onChangeText={ Cpasswprd => this.setState({Cpasswprd}) } />
                     </View>
 
-                    {/* Auth Errors */}
+                    
                     <Text style={viewStyles.txtError}>{this.state.err}</Text>
 
                     <View style={viewStyles.frameCta}>
                         <Button disabled={this.state.loading} type="primary" onPress={this.onButtonPress.bind(this)}>{this.state.pageText}</Button>
                     </View> 
 
-                    {/* Spinner */}
+                    
                     { this.state.loading && <Spinner />}
-                </View> {/* Panel */}
+                </View>
  
-                {/* Page buttom links */}
-                <List containerStyle={viewStyles.pageBottomLinksContainer}>
-                    {
-                        arrPageBottomLinks.map((l, i) => (
-                            <ListItem key={i} title={l.name} style={viewStyles.pageBottomLink} />
-                        ))
-                    }
-                </List>
+                
   
                 <BackgroundImage /> 
             </View>
